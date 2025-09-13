@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
+import { usePersonStore } from "@/stores/person-store";
 import type { Person } from "@/types/person/person";
+import type { ID } from "@/types/person/person-brands";
 import { generateUUID } from "@/utils/generate-uuid";
 import { ChevronDown } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
@@ -19,20 +21,20 @@ export const PersonTableRow = ({ person }: Props) => {
   return (
     <>
       <TableRow key={generateUUID("1")}>
-        {["#1", ...Object.values(person.data), "#2"].map((subItem, index) => {
+        {["#1", ...Object.values(person.data), "#2"].map((subItem, idx) => {
           if (subItem === "#1") {
             return DisplaySubItemOne({
-              type: person.children.type,
+              person,
               isExpanded,
               setIsExpanded,
             });
           }
 
           if (subItem === "#2") {
-            return DisplaySubItemTwo();
+            return DisplaySubItemTwo(person.data.ID);
           }
 
-          if (getDateIndexes(person).includes(index)) {
+          if (getDateIndexes(person).includes(idx)) {
             return (
               <TableCell key={generateUUID("1")} className="font-mono">
                 {subItem}
@@ -63,15 +65,18 @@ export const PersonTableRow = ({ person }: Props) => {
 };
 
 const DisplaySubItemOne = ({
-  type,
+  person,
   isExpanded,
   setIsExpanded,
 }: {
-  type: String;
+  person: Person;
   isExpanded: boolean;
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
 }) => {
-  if (type === "0") {
+  if (
+    person.children.type === "0" ||
+    person.children.has_nemesis.records.length === 0
+  ) {
     return (
       <TableCell key={generateUUID("1")}>
         <span></span>
@@ -97,12 +102,17 @@ const DisplaySubItemOne = ({
   );
 };
 
-const DisplaySubItemTwo = () => {
+const DisplaySubItemTwo = (id: ID) => {
+  const stores = {
+    person: usePersonStore(),
+  };
+
   return (
     <TableCell key={generateUUID("1")}>
       <Button
         className="hover:border-red-401 cursor-pointer hover:text-red-400"
         variant="outline"
+        onClick={() => stores.person.action.deletePerson(id)}
       >
         Delete
       </Button>

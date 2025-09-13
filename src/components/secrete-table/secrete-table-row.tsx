@@ -1,3 +1,5 @@
+import { usePersonStore } from "@/stores/person-store";
+import type { ID } from "@/types/person/person-brands";
 import type { SecreteRecord } from "@/types/record";
 import { generateUUID } from "@/utils/generate-uuid";
 import { Button } from "../ui/button";
@@ -11,12 +13,12 @@ export const SecreteTableRow = ({ record }: Props) => {
   return (
     <>
       <TableRow key={generateUUID("1")}>
-        {[...Object.values(record.data), "#1"].map((subItem, index) => {
+        {[...Object.values(record.data), "#1"].map((subItem, idx) => {
           if (subItem === "#1") {
-            return DisplaySubItemOne();
+            return DisplaySubItemOne(record.data.ID);
           }
 
-          if (getDateIndexes(record).includes(index)) {
+          if (getDateIndexes(record).includes(idx)) {
             return (
               <TableCell key={generateUUID("1")} className="font-mono">
                 {subItem}
@@ -31,12 +33,17 @@ export const SecreteTableRow = ({ record }: Props) => {
   );
 };
 
-const DisplaySubItemOne = () => {
+const DisplaySubItemOne = (id: ID) => {
+  const stores = {
+    person: usePersonStore(),
+  };
+
   return (
     <TableCell key={generateUUID("1")}>
       <Button
         className="hover:border-red-401 cursor-pointer hover:text-red-400"
         variant="outline"
+        onClick={() => stores.person.action.deleteSecrete(id)}
       >
         Delete
       </Button>

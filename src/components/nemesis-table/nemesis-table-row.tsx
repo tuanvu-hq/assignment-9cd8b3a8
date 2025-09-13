@@ -1,4 +1,6 @@
 import { cn } from "@/lib/utils";
+import { usePersonStore } from "@/stores/person-store";
+import type { ID } from "@/types/person/person-brands";
 import type { NemesisRecord } from "@/types/record";
 import { generateUUID } from "@/utils/generate-uuid";
 import { ChevronDown } from "lucide-react";
@@ -16,25 +18,23 @@ type Props = {
 export const NemesisTableRow = ({ record }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  console.log(record);
-
   return (
     <>
       <TableRow key={generateUUID("1")}>
-        {["#1", ...Object.values(record.data), "#2"].map((subItem, index) => {
+        {["#1", ...Object.values(record.data), "#2"].map((subItem, idx) => {
           if (subItem === "#1") {
             return DisplaySubItemOne({
-              type: record.children.type,
+              record,
               isExpanded,
               setIsExpanded,
             });
           }
 
           if (subItem === "#2") {
-            return DisplaySubItemTwo();
+            return DisplaySubItemTwo(record.data.ID);
           }
 
-          if (getDateIndexes(record).includes(index)) {
+          if (getDateIndexes(record).includes(idx)) {
             return (
               <TableCell key={generateUUID("1")} className="font-mono">
                 {subItem}
@@ -66,15 +66,18 @@ export const NemesisTableRow = ({ record }: Props) => {
 };
 
 const DisplaySubItemOne = ({
-  type,
+  record,
   isExpanded,
   setIsExpanded,
 }: {
-  type: String;
+  record: NemesisRecord;
   isExpanded: boolean;
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
 }) => {
-  if (type === "0") {
+  if (
+    record.children.type === "0" ||
+    record.children.has_secrete.records.length === 0
+  ) {
     return (
       <TableCell key={generateUUID("1")}>
         <span></span>
@@ -100,12 +103,17 @@ const DisplaySubItemOne = ({
   );
 };
 
-const DisplaySubItemTwo = () => {
+const DisplaySubItemTwo = (id: ID) => {
+  const stores = {
+    person: usePersonStore(),
+  };
+
   return (
     <TableCell key={generateUUID("1")}>
       <Button
         className="hover:border-red-401 cursor-pointer hover:text-red-400"
         variant="outline"
+        onClick={() => stores.person.action.deleteNemesis(id)}
       >
         Delete
       </Button>
