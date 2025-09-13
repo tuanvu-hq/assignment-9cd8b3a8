@@ -1,17 +1,10 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
-import { Button } from "./components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./components/ui/table";
+import { TableBody } from "./components/table/table-body";
+import { TableHeader } from "./components/table/table-header";
+import { Table } from "./components/ui/table";
 import { usePersonStore } from "./stores/person-store";
 import { fetchData$ } from "./utils/fetch-data";
-import { generateUUID } from "./utils/generate-uuid";
 
 export const App = () => {
   const stores = {
@@ -48,30 +41,8 @@ export const App = () => {
   return (
     <div className="p-10">
       <Table>
-        <TableHeader>
-          <TableRow className="hover:bg-transparent">
-            {[...Object.keys(atoms.list[0].data), "Delete"].map((item) => {
-              return <TableHead key={generateUUID("1")}>{item}</TableHead>;
-            })}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {atoms.list.map((item) => (
-            <TableRow key={generateUUID("1")}>
-              {[...Object.values(item.data), "#1"].map((subItem) => {
-                if (subItem === "#1") {
-                  return (
-                    <TableCell key={generateUUID("1")}>
-                      <Button className="cursor-pointer">Delete</Button>
-                    </TableCell>
-                  );
-                }
-
-                return <TableCell key={generateUUID("1")}>{subItem}</TableCell>;
-              })}
-            </TableRow>
-          ))}
-        </TableBody>
+        <TableHeader />
+        <TableBody />
       </Table>
     </div>
   );

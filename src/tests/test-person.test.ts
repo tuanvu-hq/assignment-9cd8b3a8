@@ -1,8 +1,8 @@
-import type { Person } from "@/types/person/person";
+import { handleETL } from "@/utils/handle-ETL";
 import { expect, test } from "vitest";
 import JSON from "../assets/example-data.json";
 
-const DATA = JSON as Person[];
+const DATA = handleETL(JSON);
 
 test("test_data_length_ok", () => {
   expect(DATA.length).toBe(11);
