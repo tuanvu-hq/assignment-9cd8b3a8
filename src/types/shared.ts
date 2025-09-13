@@ -2,6 +2,15 @@ export type EmptyChildren = {
   type: "0";
 };
 
-export type AbilityType = "mathematician";
-export type BooleanType = "true" | "false";
-export type GenderType = "male" | "female";
+export type AbilityType =
+  | "42"
+  | "NULL"
+  | "coastlines_creator"
+  | "enjoys_tea"
+  | "has_towel"
+  | "mathematician"
+  | "mothering"
+  | "quite_talkative"
+  | "semi_half_cousin";
+export type BooleanType = "false" | "true";
+export type GenderType = "" | "F" | "M" | "female" | "m" | "male" | "mouse";
