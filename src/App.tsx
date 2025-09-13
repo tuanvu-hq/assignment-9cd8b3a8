@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
-import { TableBody } from "./components/table/table-body";
-import { TableHeader } from "./components/table/table-header";
+import { PersonTableBody } from "./components/person-table/person-table-body";
+import { PersonTableHeader } from "./components/person-table/person-table-header";
 import { Table } from "./components/ui/table";
 import { usePersonStore } from "./stores/person-store";
 import { fetchData$ } from "./utils/fetch-data";
@@ -41,8 +41,8 @@ export const App = () => {
   return (
     <div className="p-10">
       <Table>
-        <TableHeader />
-        <TableBody />
+        <PersonTableHeader />
+        <PersonTableBody />
       </Table>
     </div>
   );
