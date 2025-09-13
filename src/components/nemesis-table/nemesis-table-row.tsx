@@ -1,28 +1,30 @@
 import { cn } from "@/lib/utils";
-import type { Person } from "@/types/person/person";
+import type { NemesisRecord } from "@/types/record";
 import { generateUUID } from "@/utils/generate-uuid";
 import { ChevronDown } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
-import { NemesisTableBody } from "../nemesis-table/nemesis-table-body";
-import { NemesisTableHeader } from "../nemesis-table/nemesis-table-header";
+import { SecreteTableBody } from "../secrete-table/secrete-table-body";
+import { SecreteTableHeader } from "../secrete-table/secrete-table-header";
 import { TableLayerLine } from "../table-layer-line";
 import { Button } from "../ui/button";
 import { Table, TableCell, TableRow } from "../ui/table";
 
 type Props = {
-  person: Person;
+  record: NemesisRecord;
 };
 
-export const PersonTableRow = ({ person }: Props) => {
+export const NemesisTableRow = ({ record }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  console.log(record);
 
   return (
     <>
       <TableRow key={generateUUID("1")}>
-        {["#1", ...Object.values(person.data), "#2"].map((subItem, index) => {
+        {["#1", ...Object.values(record.data), "#2"].map((subItem, index) => {
           if (subItem === "#1") {
             return DisplaySubItemOne({
-              type: person.children.type,
+              type: record.children.type,
               isExpanded,
               setIsExpanded,
             });
@@ -32,7 +34,7 @@ export const PersonTableRow = ({ person }: Props) => {
             return DisplaySubItemTwo();
           }
 
-          if (getDateIndexes(person).includes(index)) {
+          if (getDateIndexes(record).includes(index)) {
             return (
               <TableCell key={generateUUID("1")} className="font-mono">
                 {subItem}
@@ -43,15 +45,16 @@ export const PersonTableRow = ({ person }: Props) => {
           return <TableCell key={generateUUID("1")}>{subItem}</TableCell>;
         })}
       </TableRow>
-      {person.children.type === "1" && isExpanded && (
+      {record.children.type === "1" && isExpanded && (
         <TableRow className="hover:bg-transparent">
-          <TableCell colSpan={Object.keys(person.data).length + 2}>
+          <TableCell colSpan={Object.keys(record.data).length + 2}>
             <div className="flex py-4 pl-4">
               <TableLayerLine />
+              <div className="w-14"></div>
               <div>
                 <Table className="">
-                  <NemesisTableHeader children={person.children} />
-                  <NemesisTableBody children={person.children} />
+                  <SecreteTableHeader children={record.children} />
+                  <SecreteTableBody children={record.children} />
                 </Table>
               </div>
             </div>
@@ -110,7 +113,7 @@ const DisplaySubItemTwo = () => {
   );
 };
 
-const getDateIndexes = (payload: Person) => {
+const getDateIndexes = (payload: NemesisRecord) => {
   return Object.keys(payload.data)
     .map((item, index) => {
       const lookup = ["Born", "In space since"];

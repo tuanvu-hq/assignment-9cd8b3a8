@@ -3,7 +3,7 @@ import type { EmptyChildren } from "./shared";
 
 export type NemesisRecord = {
   data: NemesisData;
-  children: NemesisChildren;
+  children: EmptyChildren | NemesisChildren;
 };
 
 export type NemesisData = {
