@@ -45,22 +45,24 @@ export const NemesisTableRow = ({ record }: Props) => {
           return <TableCell key={generateUUID("1")}>{subItem}</TableCell>;
         })}
       </TableRow>
-      {record.__type === "1" && isExpanded && (
-        <TableRow className="hover:bg-transparent">
-          <TableCell colSpan={Object.keys(record.data).length + 2}>
-            <div className="flex py-4 pl-4">
-              <TableLayerLine />
-              <div className="w-14"></div>
-              <div>
-                <Table className="">
-                  <SecreteTableHeader children={record.children} />
-                  <SecreteTableBody children={record.children} />
-                </Table>
+      {record.__type === "1" &&
+        record.children.has_secrete.records.length !== 0 &&
+        isExpanded && (
+          <TableRow className="hover:bg-transparent">
+            <TableCell colSpan={Object.keys(record.data).length + 2}>
+              <div className="flex py-4 pl-4">
+                <TableLayerLine />
+                <div className="w-14"></div>
+                <div>
+                  <Table className="">
+                    <SecreteTableHeader children={record.children} />
+                    <SecreteTableBody children={record.children} />
+                  </Table>
+                </div>
               </div>
-            </div>
-          </TableCell>
-        </TableRow>
-      )}
+            </TableCell>
+          </TableRow>
+        )}
     </>
   );
 };

@@ -45,21 +45,23 @@ export const PersonTableRow = ({ person }: Props) => {
           return <TableCell key={generateUUID("1")}>{subItem}</TableCell>;
         })}
       </TableRow>
-      {person.__type === "1" && isExpanded && (
-        <TableRow className="hover:bg-transparent">
-          <TableCell colSpan={Object.keys(person.data).length + 2}>
-            <div className="flex py-4 pl-4">
-              <TableLayerLine />
-              <div>
-                <Table className="">
-                  <NemesisTableHeader children={person.children} />
-                  <NemesisTableBody children={person.children} />
-                </Table>
+      {person.__type === "1" &&
+        person.children.has_nemesis.records.length !== 0 &&
+        isExpanded && (
+          <TableRow className="hover:bg-transparent">
+            <TableCell colSpan={Object.keys(person.data).length + 2}>
+              <div className="flex py-4 pl-4">
+                <TableLayerLine />
+                <div>
+                  <Table className="">
+                    <NemesisTableHeader children={person.children} />
+                    <NemesisTableBody children={person.children} />
+                  </Table>
+                </div>
               </div>
-            </div>
-          </TableCell>
-        </TableRow>
-      )}
+            </TableCell>
+          </TableRow>
+        )}
     </>
   );
 };

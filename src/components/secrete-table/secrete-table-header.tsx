@@ -1,5 +1,4 @@
 import type { NemesisRecordChildren } from "@/types/person/nemesis";
-import { generateUUID } from "@/utils/generate-uuid";
 import { TableHead, TableHeader, TableRow } from "../ui/table";
 
 type Props = {
@@ -12,11 +11,13 @@ export const SecreteTableHeader = ({ children }: Props) => {
       <TableRow className="hover:bg-transparent">
         {[...Object.keys(children.has_secrete.records[0].data), "#1"].map(
           (item) => {
+            const key = `secrete-header.${item}`;
+
             if (item === "#1") {
-              return <TableHead key={generateUUID("1")}>Delete</TableHead>;
+              return <TableHead key={key}>Delete</TableHead>;
             }
 
-            return <TableHead key={generateUUID("1")}>{item}</TableHead>;
+            return <TableHead key={key}>{item}</TableHead>;
           },
         )}
       </TableRow>

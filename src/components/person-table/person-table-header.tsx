@@ -1,5 +1,4 @@
 import { usePersonStore } from "@/stores/person-store";
-import { generateUUID } from "@/utils/generate-uuid";
 import { useAtomValue } from "jotai";
 import { TableHead, TableHeader, TableRow } from "../ui/table";
 
@@ -15,15 +14,17 @@ export const PersonTableHeader = () => {
     <TableHeader>
       <TableRow className="hover:bg-transparent">
         {["#1", ...Object.keys(atoms.list[0].data), "#2"].map((item) => {
+          const key = `person-header.${item}`;
+
           if (item === "#1") {
-            return <TableHead key={generateUUID("1")}></TableHead>;
+            return <TableHead key={key}></TableHead>;
           }
 
           if (item === "#2") {
-            return <TableHead key={generateUUID("1")}>Delete</TableHead>;
+            return <TableHead key={key}>Delete</TableHead>;
           }
 
-          return <TableHead key={generateUUID("1")}>{item}</TableHead>;
+          return <TableHead key={key}>{item}</TableHead>;
         })}
       </TableRow>
     </TableHeader>
