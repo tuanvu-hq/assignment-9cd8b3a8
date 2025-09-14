@@ -1,29 +1,23 @@
-import type { PersonChildren } from "@/types/person/person";
+import { NEMESIS_TABLE_HEADER } from "@/constants/table-constants";
 import { TableHead, TableHeader, TableRow } from "../ui/table";
 
-type Props = {
-  children: PersonChildren;
-};
-
-export const NemesisTableHeader = ({ children }: Props) => {
+export const NemesisTableHeader = () => {
   return (
     <TableHeader>
       <TableRow className="hover:bg-transparent">
-        {["#1", ...Object.keys(children.has_nemesis.records[0].data), "#2"].map(
-          (item) => {
-            const key = `nemesis-header.${item}`;
+        {["#1", ...NEMESIS_TABLE_HEADER, "#2"].map((item) => {
+          const key = `nemesis-header.${item}`;
 
-            if (item === "#1") {
-              return <TableHead key={key}></TableHead>;
-            }
+          if (item === "#1") {
+            return <TableHead key={key}></TableHead>;
+          }
 
-            if (item === "#2") {
-              return <TableHead key={key}>Delete</TableHead>;
-            }
+          if (item === "#2") {
+            return <TableHead key={key}>Delete</TableHead>;
+          }
 
-            return <TableHead key={key}>{item}</TableHead>;
-          },
-        )}
+          return <TableHead key={key}>{item}</TableHead>;
+        })}
       </TableRow>
     </TableHeader>
   );

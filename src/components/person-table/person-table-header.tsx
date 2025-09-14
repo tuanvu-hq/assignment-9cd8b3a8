@@ -1,19 +1,11 @@
-import { usePersonStore } from "@/stores/person-store";
-import { useAtomValue } from "jotai";
+import { PERSON_TABLE_HEADER } from "@/constants/table-constants";
 import { TableHead, TableHeader, TableRow } from "../ui/table";
 
 export const PersonTableHeader = () => {
-  const stores = {
-    person: usePersonStore(),
-  };
-  const atoms = {
-    list: useAtomValue(stores.person.atom.list),
-  };
-
   return (
     <TableHeader>
       <TableRow className="hover:bg-transparent">
-        {["#1", ...Object.keys(atoms.list[0].data), "#2"].map((item) => {
+        {["#1", ...PERSON_TABLE_HEADER, "#2"].map((item) => {
           const key = `person-header.${item}`;
 
           if (item === "#1") {

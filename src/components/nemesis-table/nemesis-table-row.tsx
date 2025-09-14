@@ -1,3 +1,4 @@
+import { NEMESIS_TABLE_HEADER } from "@/constants/table-constants";
 import { cn } from "@/lib/utils";
 import { usePersonStore } from "@/stores/person-store";
 import type { NemesisRecordModified } from "@/types/person/nemesis";
@@ -49,13 +50,13 @@ export const NemesisTableRow = ({ record }: Props) => {
         record.children.has_secrete.records.length !== 0 &&
         isExpanded && (
           <TableRow className="hover:bg-transparent">
-            <TableCell colSpan={Object.keys(record.data).length + 2}>
+            <TableCell colSpan={NEMESIS_TABLE_HEADER.length + 2}>
               <div className="flex py-4 pl-4">
                 <TableLayerLine />
                 <div className="w-14"></div>
                 <div>
                   <Table className="">
-                    <SecreteTableHeader children={record.children} />
+                    <SecreteTableHeader />
                     <SecreteTableBody children={record.children} />
                   </Table>
                 </div>

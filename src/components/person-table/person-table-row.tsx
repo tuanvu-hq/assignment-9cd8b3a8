@@ -1,3 +1,4 @@
+import { PERSON_TABLE_HEADER } from "@/constants/table-constants";
 import { cn } from "@/lib/utils";
 import { usePersonStore } from "@/stores/person-store";
 import type { Person, PersonModified } from "@/types/person/person";
@@ -49,12 +50,12 @@ export const PersonTableRow = ({ person }: Props) => {
         person.children.has_nemesis.records.length !== 0 &&
         isExpanded && (
           <TableRow className="hover:bg-transparent">
-            <TableCell colSpan={Object.keys(person.data).length + 2}>
+            <TableCell colSpan={PERSON_TABLE_HEADER.length + 2}>
               <div className="flex py-4 pl-4">
                 <TableLayerLine />
                 <div>
                   <Table className="">
-                    <NemesisTableHeader children={person.children} />
+                    <NemesisTableHeader />
                     <NemesisTableBody children={person.children} />
                   </Table>
                 </div>
