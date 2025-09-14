@@ -1,9 +1,11 @@
 import "./styles/main.css";
 
+// before react import
+import { scan } from "react-scan";
+
 import { Provider } from "jotai";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { scan } from "react-scan";
 import { App } from "./App.tsx";
 import { store } from "./stores/store.ts";
 
@@ -16,5 +18,5 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <App />
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );
