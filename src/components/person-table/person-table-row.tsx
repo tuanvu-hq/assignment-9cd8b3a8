@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { usePersonStore } from "@/stores/person-store";
-import type { Person } from "@/types/person/person";
+import type { Person, PersonModified } from "@/types/person/person";
 import type { ID } from "@/types/person/person-brands";
 import { generateUUID } from "@/utils/generate-uuid";
 import { ChevronDown } from "lucide-react";
@@ -12,7 +12,7 @@ import { Button } from "../ui/button";
 import { Table, TableCell, TableRow } from "../ui/table";
 
 type Props = {
-  person: Person;
+  person: PersonModified;
 };
 
 export const PersonTableRow = ({ person }: Props) => {
@@ -45,7 +45,7 @@ export const PersonTableRow = ({ person }: Props) => {
           return <TableCell key={generateUUID("1")}>{subItem}</TableCell>;
         })}
       </TableRow>
-      {person.children.type === "1" && isExpanded && (
+      {person.__type === "1" && isExpanded && (
         <TableRow className="hover:bg-transparent">
           <TableCell colSpan={Object.keys(person.data).length + 2}>
             <div className="flex py-4 pl-4">
@@ -69,12 +69,12 @@ const DisplaySubItemOne = ({
   isExpanded,
   setIsExpanded,
 }: {
-  person: Person;
+  person: PersonModified;
   isExpanded: boolean;
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
 }) => {
   if (
-    person.children.type === "0" ||
+    person.__type === "0" ||
     person.children.has_nemesis.records.length === 0
   ) {
     return (

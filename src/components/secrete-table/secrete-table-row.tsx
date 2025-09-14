@@ -1,6 +1,6 @@
 import { usePersonStore } from "@/stores/person-store";
 import type { ID } from "@/types/person/person-brands";
-import type { SecreteRecord } from "@/types/record";
+import type { SecreteRecord } from "@/types/person/secrete";
 import { generateUUID } from "@/utils/generate-uuid";
 import { Button } from "../ui/button";
 import { TableCell, TableRow } from "../ui/table";

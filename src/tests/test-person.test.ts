@@ -1,15 +1,16 @@
+import type { Person } from "@/types/person/person";
 import { handleETL } from "@/utils/handle-ETL";
 import { expect, test } from "vitest";
 import JSON from "../assets/example-data.json";
 
-const DATA = handleETL(JSON);
+const DATA = handleETL(JSON as Person[]);
 
 test("test_data_length_ok", () => {
   expect(DATA.length).toBe(11);
 });
 
 test("test_item_1_exact", () => {
-  const { data, children } = DATA[0];
+  const { data, children, __type } = DATA[0];
 
   expect(data.ID).toBe("44");
   expect(data.Name).toBe("Trillian");
@@ -26,7 +27,7 @@ test("test_item_1_exact", () => {
 
   expect(keys.length).toBeGreaterThan(0);
 
-  if (children.type === "1") {
+  if (__type === "1") {
     const items = children.has_nemesis.records;
 
     expect(items[0].data.ID).toBe("1007");
@@ -34,7 +35,7 @@ test("test_item_1_exact", () => {
     expect(items[0].data["Is alive?"]).toBe("true");
     expect(items[0].data.Years).toBe("29");
 
-    if (items[0].children.type === "1") {
+    if (items[0].__type === "1") {
       const subItems = items[0].children.has_secrete.records;
 
       expect(subItems[0].data.ID).toBe("2008");
@@ -45,7 +46,7 @@ test("test_item_1_exact", () => {
 });
 
 test("test_item_2_exact", () => {
-  const { data, children } = DATA[1];
+  const { data, __type } = DATA[1];
 
   expect(data.ID).toBe("48");
   expect(data.Name).toBe("Zaphod Beeblebrox");
@@ -58,11 +59,11 @@ test("test_item_2_exact", () => {
   expect(data["Beer consumption (l/y)"]).toBe("679420");
   expect(data["Knows the answer?"]).toBe("true");
 
-  expect(children.type).toBe("0");
+  expect(__type).toBe("0");
 });
 
 test("test_item_3_exact", () => {
-  const { data, children } = DATA[2];
+  const { data, __type } = DATA[2];
 
   expect(data.ID).toBe("48");
   expect(data.Name).toBe("Zaphod Beeblebrox");
@@ -75,11 +76,11 @@ test("test_item_3_exact", () => {
   expect(data["Beer consumption (l/y)"]).toBe("679242");
   expect(data["Knows the answer?"]).toBe("true");
 
-  expect(children.type).toBe("0");
+  expect(__type).toBe("0");
 });
 
 test("test_item_4_exact", () => {
-  const { data, children } = DATA[3];
+  const { data, children, __type } = DATA[3];
 
   expect(data.ID).toBe("52");
   expect(data.Name).toBe("Ford Prefect");
@@ -96,7 +97,7 @@ test("test_item_4_exact", () => {
 
   expect(keys.length).toBeGreaterThan(0);
 
-  if (children.type === "1") {
+  if (__type === "1") {
     const items = children.has_nemesis.records;
 
     expect(items[0].data.ID).toBe("1684");
@@ -104,7 +105,7 @@ test("test_item_4_exact", () => {
     expect(items[0].data["Is alive?"]).toBe("true");
     expect(items[0].data.Years).toBe("28");
 
-    if (items[0].children.type === "1") {
+    if (items[0].__type === "1") {
       const subItems = items[0].children.has_secrete.records;
 
       expect(subItems.length).toBe(4);
@@ -133,7 +134,7 @@ test("test_item_4_exact", () => {
 });
 
 test("test_item_5_exact", () => {
-  const { data, children } = DATA[4];
+  const { data, children, __type } = DATA[4];
 
   expect(data.ID).toBe("86");
   expect(data.Name).toBe("Mrs Alice Beeblebrox");
@@ -150,7 +151,7 @@ test("test_item_5_exact", () => {
 
   expect(keys.length).toBeGreaterThan(0);
 
-  if (children.type === "1") {
+  if (__type === "1") {
     const items = children.has_nemesis.records;
 
     expect(items[0].data.ID).toBe("116");
@@ -158,7 +159,7 @@ test("test_item_5_exact", () => {
     expect(items[0].data["Is alive?"]).toBe("true");
     expect(items[0].data.Years).toBe("45");
 
-    if (items[0].children.type === "1") {
+    if (items[0].__type === "1") {
       const subItems = items[0].children.has_secrete.records;
 
       expect(subItems.length).toBe(3);
@@ -182,7 +183,7 @@ test("test_item_5_exact", () => {
 });
 
 test("test_item_6_exact", () => {
-  const { data, children } = DATA[5];
+  const { data, children, __type } = DATA[5];
 
   expect(data.ID).toBe("94");
   expect(data.Name).toBe("Slartibartfast");
@@ -199,7 +200,7 @@ test("test_item_6_exact", () => {
 
   expect(keys.length).toBeGreaterThan(0);
 
-  if (children.type === "1") {
+  if (__type === "1") {
     const items = children.has_nemesis.records;
 
     expect(items.length).toBe(2);
@@ -209,7 +210,7 @@ test("test_item_6_exact", () => {
     expect(items[0].data["Is alive?"]).toBe("true");
     expect(items[0].data.Years).toBe("44");
 
-    if (items[0].children.type === "1") {
+    if (items[0].__type === "1") {
       const subItem1 = items[0].children.has_secrete.records[0];
 
       expect(subItem1.data.ID).toBe("2422");
@@ -223,7 +224,7 @@ test("test_item_6_exact", () => {
       expect(items[1].data.Years).toBe("44");
     }
 
-    if (items[1].children.type === "1") {
+    if (items[1].__type === "1") {
       const subItem2 = items[1].children.has_secrete.records[0];
 
       expect(subItem2.data.ID).toBe("4270");
@@ -235,7 +236,7 @@ test("test_item_6_exact", () => {
 });
 
 test("test_item_7_exact", () => {
-  const { data, children } = DATA[6];
+  const { data, children, __type } = DATA[6];
 
   expect(data.ID).toBe("99");
   expect(data.Name).toBe("Arthur Dent");
@@ -252,7 +253,7 @@ test("test_item_7_exact", () => {
 
   expect(keys.length).toBeGreaterThan(0);
 
-  if (children.type === "1") {
+  if (__type === "1") {
     const items = children.has_nemesis.records;
 
     expect(items.length).toBe(1);
@@ -262,7 +263,7 @@ test("test_item_7_exact", () => {
     expect(items[0].data["Is alive?"]).toBe("true");
     expect(items[0].data.Years).toBe("");
 
-    if (items[0].children.type === "1") {
+    if (items[0].__type === "1") {
       const subItems = items[0].children.has_secrete.records;
 
       expect(subItems.length).toBe(1);
@@ -276,7 +277,7 @@ test("test_item_7_exact", () => {
 });
 
 test("test_item_8_exact", () => {
-  const { data, children } = DATA[7];
+  const { data, children, __type } = DATA[7];
 
   expect(data.ID).toBe("108");
   expect(data.Name).toBe("Frankie");
@@ -293,7 +294,7 @@ test("test_item_8_exact", () => {
 
   expect(keys.length).toBeGreaterThan(0);
 
-  if (children.type === "1") {
+  if (__type === "1") {
     const items = children.has_nemesis.records;
 
     expect(items.length).toBe(2);
@@ -303,7 +304,7 @@ test("test_item_8_exact", () => {
     expect(items[0].data["Is alive?"]).toBe("true");
     expect(items[0].data.Years).toBe("27");
 
-    if (items[0].children.type === "1") {
+    if (items[0].__type === "1") {
       const subItems1 = items[0].children.has_secrete.records;
 
       expect(subItems1.length).toBe(2);
@@ -324,7 +325,7 @@ test("test_item_8_exact", () => {
       expect(items[1].data.Years).toBe("40");
     }
 
-    if (items[1].children.type === "1") {
+    if (items[1].__type === "1") {
       const subItems2 = items[1].children.has_secrete.records;
 
       expect(subItems2.length).toBe(2);
@@ -343,7 +344,7 @@ test("test_item_8_exact", () => {
 });
 
 test("test_item_9_exact", () => {
-  const { data, children } = DATA[8];
+  const { data, children, __type } = DATA[8];
 
   expect(data.ID).toBe("109");
   expect(data.Name).toBe("Benjy");
@@ -360,7 +361,7 @@ test("test_item_9_exact", () => {
 
   expect(keys.length).toBeGreaterThan(0);
 
-  if (children.type === "1") {
+  if (__type === "1") {
     const items = children.has_nemesis.records;
 
     expect(items.length).toBe(2);
@@ -370,7 +371,7 @@ test("test_item_9_exact", () => {
     expect(items[0].data["Is alive?"]).toBe("true");
     expect(items[0].data.Years).toBe("46");
 
-    if (items[0].children.type === "1") {
+    if (items[0].__type === "1") {
       const subItems1 = items[0].children.has_secrete.records;
 
       expect(subItems1.length).toBe(3);
@@ -396,7 +397,7 @@ test("test_item_9_exact", () => {
       expect(items[1].data.Years).toBe("25");
     }
 
-    if (items[1].children.type === "1") {
+    if (items[1].__type === "1") {
       const subItems2 = items[1].children.has_secrete.records;
 
       expect(subItems2.length).toBe(2);
@@ -415,7 +416,7 @@ test("test_item_9_exact", () => {
 });
 
 test("test_item_10_exact", () => {
-  const { data, children } = DATA[9];
+  const { data, children, __type } = DATA[9];
 
   expect(data.ID).toBe("120");
   expect(data.Name).toBe("Deep Thought");
@@ -432,7 +433,7 @@ test("test_item_10_exact", () => {
 
   expect(keys.length).toBeGreaterThan(0);
 
-  if (children.type === "1") {
+  if (__type === "1") {
     const items = children.has_nemesis.records;
 
     expect(items.length).toBe(2);
@@ -447,7 +448,7 @@ test("test_item_10_exact", () => {
     expect(items[1].data["Is alive?"]).toBe("true");
     expect(items[1].data.Years).toBe("48");
 
-    if (items[1].children.type === "1") {
+    if (items[1].__type === "1") {
       const subItems = items[1].children.has_secrete.records;
 
       expect(subItems.length).toBe(2);
@@ -466,7 +467,7 @@ test("test_item_10_exact", () => {
 });
 
 test("test_item_11_exact", () => {
-  const { data, children } = DATA[10];
+  const { data, children, __type } = DATA[10];
 
   expect(data.ID).toBe("124");
   expect(data.Name).toBe("Eddie");
@@ -483,7 +484,7 @@ test("test_item_11_exact", () => {
 
   expect(keys.length).toBeGreaterThan(0);
 
-  if (children.type === "1") {
+  if (__type === "1") {
     const items = children.has_nemesis.records;
     expect(items.length).toBe(1);
 
@@ -492,7 +493,7 @@ test("test_item_11_exact", () => {
     expect(items[0].data["Is alive?"]).toBe("");
     expect(items[0].data.Years).toBe("44");
 
-    if (items[0].children.type === "1") {
+    if (items[0].__type === "1") {
       const subItems = items[0].children.has_secrete.records;
 
       expect(subItems.length).toBe(3);

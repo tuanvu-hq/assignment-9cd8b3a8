@@ -10,6 +10,7 @@ import type {
   MinimalDistance,
   Name,
   SecreteCode,
+  UUID,
   Weight,
   Years,
 } from "@/types/person/person-brands";
@@ -99,4 +100,8 @@ export const generateBrandYears = (payload: `${number}`) => {
 
 export const generateBrandSecreteCode = (payload: `${number}`) => {
   return payload as SecreteCode;
+};
+
+export const generateBrandUUID = (payload: string) => {
+  return payload as UUID;
 };

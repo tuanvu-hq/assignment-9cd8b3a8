@@ -1,5 +1,10 @@
-import type { NemesisRecord } from "../record";
-import type { EmptyChildren } from "../shared";
+import type {
+  EmptyChildren,
+  EmptyChildrenType,
+  Metadata,
+  PresentChildrenType,
+} from "../shared";
+import type { NemesisRecord, NemesisRecordModified } from "./nemesis";
 import type {
   Ability,
   BeerConsuption,
@@ -18,6 +23,20 @@ export type Person = {
   children: EmptyChildren | PersonChildren;
 };
 
+export type PersonModified = PersonEmptyChildren | PersonPresentChildren;
+
+export type PersonEmptyChildren = {
+  data: PersonData;
+  children: EmptyChildren;
+} & EmptyChildrenType &
+  Metadata;
+
+export type PersonPresentChildren = {
+  data: PersonData;
+  children: PersonChildrenModified;
+} & PresentChildrenType &
+  Metadata;
+
 export type PersonData = {
   ID: ID;
   Name: Name;
@@ -32,8 +51,13 @@ export type PersonData = {
 };
 
 export type PersonChildren = {
-  type: "1";
   has_nemesis: {
     records: NemesisRecord[];
+  };
+};
+
+export type PersonChildrenModified = {
+  has_nemesis: {
+    records: NemesisRecordModified[];
   };
 };

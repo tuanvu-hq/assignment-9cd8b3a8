@@ -1,10 +1,10 @@
-import type { PersonChildren } from "@/types/person/person";
+import type { PersonChildrenModified } from "@/types/person/person";
 import { generateUUID } from "@/utils/generate-uuid";
 import { TableBody } from "../ui/table";
 import { NemesisTableRow } from "./nemesis-table-row";
 
 type Props = {
-  children: PersonChildren;
+  children: PersonChildrenModified;
 };
 
 export const NemesisTableBody = ({ children }: Props) => {

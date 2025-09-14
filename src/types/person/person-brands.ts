@@ -14,3 +14,5 @@ export type Name = Brand<string, "Name">;
 export type Weight = Brand<`${number}`, "Weight">;
 export type Years = Brand<`${number}`, "Years">;
 export type SecreteCode = Brand<`${number}`, "Secrete Code">;
+
+export type UUID = Brand<string, "UUID">;

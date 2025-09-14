@@ -1,9 +1,9 @@
-import type { Person } from "@/types/person/person";
+import type { PersonModified } from "@/types/person/person";
 import type { ID } from "@/types/person/person-brands";
 import { atom } from "jotai";
 import { store } from "./store";
 
-const list = atom<Person[]>([]);
+const list = atom<PersonModified[]>([]);
 
 export const usePersonStore = () => {
   return {
@@ -19,7 +19,7 @@ export const usePersonStore = () => {
   };
 };
 
-const setList = (payload: Person[]) => {
+const setList = (payload: PersonModified[]) => {
   store.set(list, payload);
 };
 
@@ -35,7 +35,7 @@ const deleteNemesis = (payload: ID) => {
   const cloned = [...store.get(list)];
 
   cloned.forEach((person) => {
-    if (person.children.type === "1") {
+    if (person.__type === "1") {
       person.children.has_nemesis.records =
         person.children.has_nemesis.records.filter(
           (nemesis) => nemesis.data.ID !== payload,
@@ -50,9 +50,9 @@ const deleteSecrete = (payload: ID) => {
   const cloned = [...store.get(list)];
 
   cloned.forEach((person) => {
-    if (person.children.type === "1") {
+    if (person.__type === "1") {
       person.children.has_nemesis.records.forEach((nemesis) => {
-        if (nemesis.children.type === "1") {
+        if (nemesis.__type === "1") {
           nemesis.children.has_secrete.records =
             nemesis.children.has_secrete.records.filter(
               (secrete) => secrete.data.ID !== payload,

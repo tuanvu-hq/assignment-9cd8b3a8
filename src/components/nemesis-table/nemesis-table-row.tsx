@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { usePersonStore } from "@/stores/person-store";
+import type { NemesisRecordModified } from "@/types/person/nemesis";
 import type { ID } from "@/types/person/person-brands";
-import type { NemesisRecord } from "@/types/record";
 import { generateUUID } from "@/utils/generate-uuid";
 import { ChevronDown } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
@@ -12,7 +12,7 @@ import { Button } from "../ui/button";
 import { Table, TableCell, TableRow } from "../ui/table";
 
 type Props = {
-  record: NemesisRecord;
+  record: NemesisRecordModified;
 };
 
 export const NemesisTableRow = ({ record }: Props) => {
@@ -45,7 +45,7 @@ export const NemesisTableRow = ({ record }: Props) => {
           return <TableCell key={generateUUID("1")}>{subItem}</TableCell>;
         })}
       </TableRow>
-      {record.children.type === "1" && isExpanded && (
+      {record.__type === "1" && isExpanded && (
         <TableRow className="hover:bg-transparent">
           <TableCell colSpan={Object.keys(record.data).length + 2}>
             <div className="flex py-4 pl-4">
@@ -70,12 +70,12 @@ const DisplaySubItemOne = ({
   isExpanded,
   setIsExpanded,
 }: {
-  record: NemesisRecord;
+  record: NemesisRecordModified;
   isExpanded: boolean;
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
 }) => {
   if (
-    record.children.type === "0" ||
+    record.__type === "0" ||
     record.children.has_secrete.records.length === 0
   ) {
     return (
@@ -121,7 +121,7 @@ const DisplaySubItemTwo = (id: ID) => {
   );
 };
 
-const getDateIndexes = (payload: NemesisRecord) => {
+const getDateIndexes = (payload: NemesisRecordModified) => {
   return Object.keys(payload.data)
     .map((item, index) => {
       const lookup = ["Born", "In space since"];

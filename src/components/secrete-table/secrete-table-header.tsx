@@ -1,9 +1,9 @@
-import type { NemesisChildren } from "@/types/record";
+import type { NemesisRecordChildren } from "@/types/person/nemesis";
 import { generateUUID } from "@/utils/generate-uuid";
 import { TableHead, TableHeader, TableRow } from "../ui/table";
 
 type Props = {
-  children: NemesisChildren;
+  children: NemesisRecordChildren;
 };
 
 export const SecreteTableHeader = ({ children }: Props) => {

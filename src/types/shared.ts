@@ -1,6 +1,6 @@
-export type EmptyChildren = {
-  type: "0";
-};
+import type { UUID } from "./person/person-brands";
+
+export type EmptyChildren = {};
 
 export type AbilityType =
   | "42"
@@ -14,3 +14,17 @@ export type AbilityType =
   | "semi_half_cousin";
 export type BooleanType = "false" | "true";
 export type GenderType = "" | "F" | "M" | "female" | "m" | "male" | "mouse";
+
+export type EmptyChildrenType = {
+  __type: "0";
+};
+
+export type PresentChildrenType = {
+  __type: "1";
+};
+
+export type Metadata = {
+  __metadata: {
+    UUID: UUID;
+  };
+};
