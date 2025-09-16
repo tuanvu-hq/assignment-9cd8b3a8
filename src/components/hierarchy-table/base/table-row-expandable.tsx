@@ -3,6 +3,7 @@ import {
   NEMESIS_TABLE_HEADER,
   SECRETE_TABLE_HEADER,
 } from "@/constants/hierarchy-table/header";
+import { cn } from "@/lib/utils";
 import type {
   NemesisTableHeader,
   SecreteTableHeader,
@@ -11,7 +12,6 @@ import type {
 import type { Nemesis, Person, Secrete } from "@/types/hierarchy-table/person";
 import { TableBody } from "./table-body";
 import { TableHeader } from "./table-header";
-import { TableLayerLine } from "./table-layer-line";
 
 type Props = {
   item: Person | Nemesis | Secrete;
@@ -44,10 +44,18 @@ export const TableRowExpandable = ({
   return (
     <TableRow className="hover:bg-transparent">
       <TableCell colSpan={values.length}>
-        <div className="flex py-4 pl-4">
-          <TableLayerLine />
-          <div>
-            <Table>
+        <div className="relative flex py-8 pl-4">
+          <div className="relative flex w-full">
+            <div className="w-8"></div>
+            <Table
+              className={cn(
+                "bg-background relative z-10 rounded border-l-[2px]",
+                {
+                  "w-1/2": item.__identifier === "person",
+                  "w-fit": item.__identifier === "nemesis",
+                },
+              )}
+            >
               <TableHeader
                 identifier={identifier}
                 list={headers}
@@ -59,9 +67,21 @@ export const TableRowExpandable = ({
                 modifiers={modifiers}
               />
             </Table>
+
+            <HorizontalLine />
           </div>
+
+          <VerticalLine />
         </div>
       </TableCell>
     </TableRow>
   );
+};
+
+const HorizontalLine = () => {
+  return <div className="bg-border absolute top-1/2 left-0 h-[2px] w-8"></div>;
+};
+
+const VerticalLine = () => {
+  return <div className="bg-border absolute top-0 left-4 h-1/2 w-[2px]"></div>;
 };

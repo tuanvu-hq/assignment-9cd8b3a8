@@ -23,9 +23,9 @@ export const TableHeader = ({ identifier, list, modifiers }: Props) => {
   if (modifiers.deletable) headers.push(TABLE_HEADER_MODIFIER.deletable);
 
   return (
-    <UiTableHeader>
+    <UiTableHeader className="bg-accent">
       <TableRow className="hover:bg-transparent">
-        {headers.map((item) => {
+        {headers.map((item, index) => {
           const key = `${identifier}-header.${item}`;
 
           if (item === TABLE_HEADER_MODIFIER.expandable) {
@@ -36,9 +36,30 @@ export const TableHeader = ({ identifier, list, modifiers }: Props) => {
             return <TableHead key={key}>Delete</TableHead>;
           }
 
+          if (getSelectedCellIndexes(list).includes(index)) {
+            return (
+              <TableHead key={key} className="w-40">
+                {item}
+              </TableHead>
+            );
+          }
+
           return <TableHead key={key}>{item}</TableHead>;
         })}
       </TableRow>
     </UiTableHeader>
   );
+};
+
+const getSelectedCellIndexes = (list: string[]) => {
+  const lookup = ["Name", "Ability"];
+  const addition = [TABLE_HEADER_MODIFIER.expandable];
+
+  return list
+    .map((item, index) => {
+      if (!lookup.includes(item)) return 0;
+
+      return index + addition.length;
+    })
+    .filter((item) => item !== 0);
 };
