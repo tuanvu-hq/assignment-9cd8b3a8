@@ -13,9 +13,13 @@ import type {
   UUID,
   Weight,
   Years,
-} from "@/types/person/person-brands";
-import type { Result } from "@/types/result";
-import type { AbilityType, BooleanType, GenderType } from "@/types/shared";
+} from "@/types/hierarchy-table/brands";
+import type {
+  AbilityType,
+  BooleanType,
+  GenderType,
+} from "@/types/hierarchy-table/shared";
+import type { Result } from "@/types/shared/result";
 
 export const generateBrandAbility = (payload: AbilityType) => {
   return payload as Ability;

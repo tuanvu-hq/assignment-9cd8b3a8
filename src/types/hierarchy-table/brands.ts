@@ -1,5 +1,5 @@
-import type { Brand } from "../brand";
-import type { AbilityType, BooleanType, GenderType } from "../shared";
+import type { Brand } from "../shared/brand";
+import type { AbilityType, BooleanType, GenderType } from "./shared";
 
 export type Ability = Brand<AbilityType, "Ability">;
 export type BeerConsuption = Brand<`${number}`, "Beer consumption (l/y)">;

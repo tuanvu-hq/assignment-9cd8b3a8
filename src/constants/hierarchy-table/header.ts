@@ -2,7 +2,9 @@ import type {
   NemesisTableHeader,
   PersonTableHeader,
   SecreteTableHeader,
-} from "@/types/person/table";
+  TableHeaderModifierValue,
+  TableModifiers,
+} from "@/types/hierarchy-table/header";
 
 export const PERSON_TABLE_HEADER: PersonTableHeader[] = [
   "ID",
@@ -29,3 +31,8 @@ export const SECRETE_TABLE_HEADER: SecreteTableHeader[] = [
   "Nemesis ID",
   "Secrete Code",
 ] as const;
+
+export const TABLE_HEADER_MODIFIER: TableModifiers<TableHeaderModifierValue> = {
+  expandable: "#01",
+  deletable: "#02",
+} as const;

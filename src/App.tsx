@@ -1,10 +1,8 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
-import { PersonTableBody } from "./components/person-table/person-table-body";
-import { PersonTableHeader } from "./components/person-table/person-table-header";
-import { Table } from "./components/ui/table";
-import { usePersonStore } from "./stores/person-store";
-import { fetchData$ } from "./utils/fetch-data";
+import { HierarchyTable } from "./components/hierarchy-table/hierarchy-table";
+import { usePersonStore } from "./stores/hierarchy-table/person";
+import { fakeFetchData$ } from "./utils/hierarchy-table/fake-fetch-data";
 
 export const App = () => {
   const stores = {
@@ -25,25 +23,10 @@ export const App = () => {
   }, []);
 
   const fetchAndSetData$ = async () => {
-    const data = await fetchData$();
+    const data = await fakeFetchData$();
 
     stores.person.action.setList(data);
   };
 
-  if (atoms.list.length === 0) {
-    return (
-      <div className="grid h-screen place-items-center p-10">
-        <p className="text-4xl">List is empty &#128557;</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="p-10">
-      <Table>
-        <PersonTableHeader />
-        <PersonTableBody />
-      </Table>
-    </div>
-  );
+  return <HierarchyTable list={atoms.list} />;
 };
