@@ -11,7 +11,7 @@ type Props = {
 
 export const TableBody = ({ identifier, list, modifiers }: Props) => {
   return (
-    <UiTableBody>
+    <UiTableBody data-identifier="hierarchy-table-body">
       {list.map((item) => {
         const uuid = item.__identifier === "person" ? item.__metadata.UUID : "";
         const key = `${identifier}-body.${item.data.ID}.${uuid}`;

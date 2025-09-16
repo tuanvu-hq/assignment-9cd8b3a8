@@ -1,6 +1,6 @@
 export type ProbablyEmptyChildren = {};
 export type EmptyChildren = {
-  __type: "0";
+  __type: "no-children";
 };
 
 export type AbilityType = string;

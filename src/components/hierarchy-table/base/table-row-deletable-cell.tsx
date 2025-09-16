@@ -23,7 +23,7 @@ export const TableRowDeletableCell = ({ item }: Props) => {
   };
 
   return (
-    <TableCell key={generateUUID("1")}>
+    <TableCell key={generateUUID("1")} data-type="hierarchy-table-delete-cell">
       <Button
         className="hover:border-red-401 cursor-pointer hover:text-red-400"
         variant="outline"

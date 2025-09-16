@@ -14,15 +14,12 @@ export const TableRowExpandableCell = ({
   expandedState: [boolean, Dispatch<SetStateAction<boolean>>];
 }) => {
   const [isExpanded, setIsExpanded] = expandedState;
-  const isChildless = item.__identifier === "secrete";
-  const hasNoChildren =
-    item.__identifier !== "secrete" && item.children.__type === "0";
+  const hasNoChildren = item.children.__type === "no-children";
   const isEmpty =
-    item.__identifier !== "secrete" &&
-    item.children.__type === "1" &&
+    item.children.__type === "has-children" &&
     item.children.records.length === 0;
 
-  if (isChildless || hasNoChildren || isEmpty) {
+  if (hasNoChildren || isEmpty) {
     return (
       <TableCell key={generateUUID("1")}>
         <span></span>
@@ -31,7 +28,7 @@ export const TableRowExpandableCell = ({
   }
 
   return (
-    <TableCell key={generateUUID("1")}>
+    <TableCell key={generateUUID("1")} data-type="hierarchy-table-expand-cell">
       <Button
         className={cn(
           "aspect-square w-5 cursor-pointer hover:border-blue-500 hover:text-blue-500",

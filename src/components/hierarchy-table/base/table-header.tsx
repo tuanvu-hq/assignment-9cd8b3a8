@@ -23,7 +23,10 @@ export const TableHeader = ({ identifier, list, modifiers }: Props) => {
   if (modifiers.deletable) headers.push(TABLE_HEADER_MODIFIER.deletable);
 
   return (
-    <UiTableHeader className="bg-accent">
+    <UiTableHeader
+      className="bg-accent"
+      data-identifier="hierarchy-table-header"
+    >
       <TableRow className="hover:bg-transparent">
         {headers.map((item, index) => {
           const key = `${identifier}-header.${item}`;

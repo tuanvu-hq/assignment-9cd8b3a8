@@ -22,7 +22,11 @@ export const TableRow = ({ item, modifiers }: Props) => {
 
   return (
     <>
-      <UiTableRow key={generateUUID("1")}>
+      <UiTableRow
+        key={generateUUID("1")}
+        data-type="hierarchy-table-row"
+        data-identifier={item.__identifier}
+      >
         {values.map((value, index) => {
           if (value === TABLE_HEADER_MODIFIER.expandable) {
             return TableRowExpandableCell({

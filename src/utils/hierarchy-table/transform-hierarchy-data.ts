@@ -66,7 +66,7 @@ const getPersonWithoutChildren = ({
   const transformed: Person = {
     data,
     children: {
-      __type: "0",
+      __type: "no-children",
     },
     __metadata: {
       UUID,
@@ -83,7 +83,7 @@ const getNemesisWithoutChildren = ({ data }: { data: NemesisRecordData }) => {
     __metadata: {},
     __identifier: "nemesis",
     children: {
-      __type: "0",
+      __type: "no-children",
     },
   };
 
@@ -95,7 +95,7 @@ const getPerson = ({ data, UUID }: { data: HierarchyData; UUID: UUID }) => {
     data,
     children: {
       records: [],
-      __type: "1",
+      __type: "has-children",
     },
     __metadata: {
       UUID,
@@ -111,7 +111,7 @@ const getNemesis = ({ data }: { data: NemesisRecordData }) => {
     data,
     children: {
       records: [],
-      __type: "1",
+      __type: "has-children",
     },
     __metadata: {},
     __identifier: "nemesis",
@@ -123,6 +123,9 @@ const getNemesis = ({ data }: { data: NemesisRecordData }) => {
 const getSecrete = ({ data }: { data: SecreteRecordData }) => {
   const transformed: Secrete = {
     data,
+    children: {
+      __type: "no-children",
+    },
     __metadata: {},
     __identifier: "secrete",
   };

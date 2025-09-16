@@ -27,19 +27,23 @@ export const TableRowExpandable = ({
   expandedState,
 }: Props) => {
   const [isExpanded, _] = expandedState;
-  const identifier = "nemesis";
+  const identifier = item.__identifier;
   let headers: NemesisTableHeader[] | SecreteTableHeader[] = [];
 
-  if (item.__identifier === "person") headers = NEMESIS_TABLE_HEADER;
-  if (item.__identifier === "nemesis") headers = SECRETE_TABLE_HEADER;
-
-  if (!modifiers.expandable) return <></>;
-  if (item.__identifier === "secrete") return <></>;
-  if (item.children.__type === "0") return <></>;
-  if (item.children.__type === "1" && item.children.records.length === 0) {
-    return <></>;
+  {
+    if (item.__identifier === "person") headers = NEMESIS_TABLE_HEADER;
+    if (item.__identifier === "nemesis") headers = SECRETE_TABLE_HEADER;
   }
-  if (!isExpanded) return <></>;
+
+  if (
+    !isExpanded ||
+    !modifiers.expandable ||
+    item.__identifier === "secrete" ||
+    item.children.__type === "no-children" ||
+    (item.children.__type === "has-children" &&
+      item.children.records.length === 0)
+  )
+    return <></>;
 
   return (
     <TableRow className="hover:bg-transparent">
@@ -51,7 +55,7 @@ export const TableRowExpandable = ({
               className={cn(
                 "bg-background relative z-10 rounded border-l-[2px]",
                 {
-                  "w-1/2": item.__identifier === "person",
+                  "w-1/3": item.__identifier === "person",
                   "w-fit": item.__identifier === "nemesis",
                 },
               )}

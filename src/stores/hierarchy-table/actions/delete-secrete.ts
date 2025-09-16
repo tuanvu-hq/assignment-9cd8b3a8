@@ -7,9 +7,9 @@ export const deleteSecrete = (atom: PrimitiveAtom<Person[]>, payload: ID) => {
   const cloned = [...store.get(atom)];
 
   cloned.forEach((person) => {
-    if (person.children.__type === "1") {
+    if (person.children.__type === "has-children") {
       person.children.records.forEach((nemesis) => {
-        if (nemesis.children.__type === "1") {
+        if (nemesis.children.__type === "has-children") {
           nemesis.children.records = nemesis.children.records.filter(
             (secrete) => secrete.data.ID !== payload,
           );
