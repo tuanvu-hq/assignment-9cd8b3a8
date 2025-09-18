@@ -1,8 +1,8 @@
 import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
-import { HierarchyTable } from "./components/hierarchy-table/hierarchy-table";
-import { usePersonStore } from "./stores/hierarchy-table/person";
-import { fakeFetchData$ } from "./utils/hierarchy-table/fake-fetch-data";
+import { HierarchyTable } from "./modules/hierarchy-table/hierarchy-table";
+import { usePersonStore } from "./modules/hierarchy-table/store";
+import { fakeFetchData$ } from "./modules/hierarchy-table/utils";
 
 export const App = () => {
   const stores = {
